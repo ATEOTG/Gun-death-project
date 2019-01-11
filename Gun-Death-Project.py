@@ -13,7 +13,24 @@ with open('guns.csv') as infile:
 with open('census.csv') as infile2:
     census_reader = csv.reader(infile2)
     census = list(census_reader)
-#print(census)
+
+#Counting gun deaths for each year and month 
+
+years = [row[1] for row in data ]
+year_counts = {}
+for year in years:
+    if year not in year_counts:
+        year_counts[year] = 1
+    else:
+        year_counts[year] += 1
+
+dates = [ datetime.datetime(year=int(row[1]),month=int(row[2]),day=1) for row in data ]
+date_counts = {}
+for row in dates:
+    if row in date_counts:
+        date_counts[row] += 1
+    else:
+       date_counts[row] = 1
 
 #looking at Homicide incidents
 
@@ -33,9 +50,6 @@ for i,race in enumerate(races):
             suicide_race_counts[race] = 1
         else:
             suicide_race_counts[race] += 1
-print(suicide_race_counts)
-
-#print(homicide_race_counts)
     
 
 #counting sex and race
@@ -52,26 +66,20 @@ for row in data:
     elif row[7] in race_counts:
         race_counts[row[7]] += 1
 
-#print(sex_counts)
-#print(race_counts)
+
 
 #getting rate per 100,000
 mapping = {'Native American/Native Alaskan':3739506,'Black':40250635,
            'White':197318956,'Hispanic':44618105,
            'Asian/Pacific Islander':15834141
               }
+
 race_per_hundredk = {}
 for race in race_counts:
     race_per_hundredk[race] = (race_counts[race]/mapping[race])* 100000
     homicide_race_counts[race] = (homicide_race_counts[race]/mapping[race])*100000
     suicide_race_counts[race] = (suicide_race_counts[race]/mapping[race])* 100000
 
-#print(homicide_race_counts)
-#print(race_per_hundredk)
-print(suicide_race_counts)
-    
-    
-    
 
 
 # most victims are men(85.6%). Once we look at it per 100,000 deaths, we see
