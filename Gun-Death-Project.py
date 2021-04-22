@@ -14,6 +14,7 @@ with open('census.csv') as infile2:
     census_reader = csv.reader(infile2)
     census = list(census_reader)
 
+
 #Counting gun deaths for each year and month 
 
 years = [row[1] for row in data ]
@@ -81,6 +82,14 @@ for race in race_counts:
     suicide_race_counts[race] = (suicide_race_counts[race]/mapping[race])* 100000
 
 
+print("Homicide Data: ")
+print(homicide_race_counts)
+
+print("\nRace per Hundred Data: ")
+print(race_per_hundredk)
+
+print("\nSuicide Data: ")
+print(suicide_race_counts)
 
 # most victims are men(85.6%). Once we look at it per 100,000 deaths, we see
 # that African-Americans are effected more by gun deaths
